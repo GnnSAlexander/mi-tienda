@@ -17,10 +17,9 @@ Route::get('/', function () {
     return view('welcome', compact(['product']));
 })->name('home');
 
-Route::get('/checkout', function() {
-    $products = [
-        new Product()
-    ];
-   return view('checkout.create',compact(['products'])) ;
-})->name('checkout');
+Route::get('/checkout', 'CheckoutController@create')->name('checkout');
+
+Route::POST('/checkout', 'CheckoutController@store')->name('checkout.store');
+
+Route::get('/checkout/summary/{order}', 'SummaryController@index')->name('summary');
 

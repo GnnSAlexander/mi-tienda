@@ -29,25 +29,57 @@
     </table>
 
     <h2>Billing Information</h2>
-    <form method="POST" action="{{ route('checkout') }}">
+    <form method="POST" action="{{ route('checkout.store') }}">
+        {{ csrf_field() }}
+
+        <input type="hidden" name="total" value="{{ $product->price }}">
+        <input type="hidden" name="currency" value="{{ config('store.currency') }}">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="text" placeholder="Pepito Perez">
+            <input
+                    type="text"
+                    name="name"
+                    class="form-control {{ $errors->get('name') ? 'is-invalid':'' }}"
+                    id="text" placeholder="Pepito Perez"
+                    value="{{ old('name') }}"
+            >
+            @if( $errors->get('name'))
+                <div class="invalid-feedback">
+                    {{ $errors->first('name') }}
+                </div>
+            @endif
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+            <input
+                    type="email"
+                    name="email"
+                    class="form-control {{ $errors->get('email') ? 'is-invalid':'' }}"
+                    id="email" placeholder="name@example.com"
+                    value="{{ old('email') }}"
+            >
+            @if( $errors->get('email'))
+                <div class="invalid-feedback">
+                    {{ $errors->first('email') }}
+                </div>
+            @endif
         </div>
         <div class="mb-3">
             <label for="phone" class="form-label">Email address</label>
             <input
                     type="tel"
                     id="phone"
-                    class="form-control"
+                    class="form-control {{ $errors->get('phone') ? 'is-invalid':'' }}"
                     name="phone"
-                    pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}"
-                    placeholder="123-1234-123"
+                    pattern="[0-9]{10}"
+                    placeholder="1234567890"
+                    value="{{ old('phone') }}"
             >
+            @if( $errors->get('phone'))
+                <div class="invalid-feedback">
+                    {{ $errors->first('phone') }}
+                </div>
+            @endif
         </div>
         <div class="mb-3">
             <div class="form-check">
@@ -58,7 +90,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Buy</button>
+            <button type="submit" class="btn btn-primary">Order</button>
         </div>
     </form>
 
