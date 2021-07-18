@@ -43,8 +43,7 @@
             <h3 class="float-md-start mb-0">Mi Tienda</h3>
             <nav class="nav nav-masthead justify-content-center float-md-end">
                 <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
-                <a class="nav-link" href="{{ route('checkout') }}">Checkout</a>
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="{{ route('order') }}">My Order</a>
             </nav>
         </div>
     </header>

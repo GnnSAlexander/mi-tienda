@@ -41,7 +41,7 @@
                     name="name"
                     class="form-control {{ $errors->get('name') ? 'is-invalid':'' }}"
                     id="text" placeholder="Pepito Perez"
-                    value="{{ old('name') }}"
+                    value="{{ old('name', optional($order)->customer_name) }}"
             >
             @if( $errors->get('name'))
                 <div class="invalid-feedback">
@@ -56,7 +56,7 @@
                     name="email"
                     class="form-control {{ $errors->get('email') ? 'is-invalid':'' }}"
                     id="email" placeholder="name@example.com"
-                    value="{{ old('email') }}"
+                    value="{{ old('email', optional($order)->customer_email) }}"
             >
             @if( $errors->get('email'))
                 <div class="invalid-feedback">
@@ -73,7 +73,7 @@
                     name="phone"
                     pattern="[0-9]{10}"
                     placeholder="1234567890"
-                    value="{{ old('phone') }}"
+                    value="{{ old('phone',optional($order)->customer_mobile ) }}"
             >
             @if( $errors->get('phone'))
                 <div class="invalid-feedback">
