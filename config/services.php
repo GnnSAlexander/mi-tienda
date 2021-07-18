@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'placetopay' => [
+        'login' => env('PLACETOPAY_LOGIN'),
+        'trankey' => env('PLACETOPAY_TRANKEY'),
+        'url' =>  env('PLACETOPAY_URL_TEST')
+    ]
+
 ];
