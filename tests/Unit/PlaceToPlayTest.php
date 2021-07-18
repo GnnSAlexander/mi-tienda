@@ -52,7 +52,7 @@ class PlaceToPlayTest extends TestCase
 
             $response = $placetopay->request($request);
 
-            dd($response->status()->message());
+            $this->assertEquals('Autenticación fallida 101',$response->status()->message());
 
         }catch (PlacetoPayException $exception){
 
