@@ -144,8 +144,27 @@ class CheckoutModuleTest extends TestCase
             'customer_mobile' => '1234567890'
         ]);
 
+    }
 
+    /**
+     * Fill an order with order rejected
+     *
+     * @return void
+     */
 
+    public function testFillAnOrderWithOrderRejected()
+    {
+        //$this->withoutExceptionHandling();
+
+        $orderStatus = config('store.order_status');
+
+        $order = Order::where('status', $orderStatus[103])->first();
+
+        $this->get(route('checkout',['order' => $order]))
+            ->assertStatus(200)
+            ->assertSee($order->customer_name)
+            ->assertSee($order->customer_email)
+            ->assertSee($order->customer_mobile);
     }
 
 }
