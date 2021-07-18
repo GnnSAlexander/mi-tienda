@@ -8,7 +8,7 @@ use Src\Models\Product;
 
 class SummaryController extends Controller
 {
-    function index(Order $order)
+    function __invoke(Order $order)
     {
         $products = [new Product()];
         return view('summary.index',compact(['order', 'products']));

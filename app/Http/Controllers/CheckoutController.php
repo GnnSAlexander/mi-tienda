@@ -9,21 +9,23 @@ use Src\Models\Product;
 class CheckoutController extends Controller
 {
 
-    function create()
+    function create( $id = null )
     {
         $products = [
             new Product() // it load an product for default
         ];
 
-        //dd(Order::all());
+        $order = null;
 
-        return view('checkout.create', compact(['products']));
+        if($id){
+            $order = Order::findOrFail($id);
+        }
+
+        return view('checkout.create', compact(['products', 'order']));
     }
 
     function store()
     {
-        //$this->paymentGateway->processURL();
-
 
         $data = request()->validate([
             'name' => 'required|min:3|max:80',

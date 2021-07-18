@@ -17,9 +17,26 @@ Route::get('/', function () {
     return view('welcome', compact(['product']));
 })->name('home');
 
-Route::get('/checkout', 'CheckoutController@create')->name('checkout');
+///CheckOutController
 
-Route::POST('/checkout', 'CheckoutController@store')->name('checkout.store');
+Route::get('/checkout/{id?}', 'CheckoutController@create')->name('checkout');
 
-Route::get('/checkout/summary/{order}', 'SummaryController@index')->name('summary');
+Route::POST('/checkout/', 'CheckoutController@store')->name('checkout.store');
+
+///SummaryController
+
+Route::get('/checkout/summary/{order}', 'SummaryController')->name('summary');
+
+
+///OrderController
+
+Route::get('/my-orders','OrderController@index')->name('order');
+
+Route::get('/my-orders/{id}','OrderController@show')->name('order.show');
+
+Route::post('/search','OrderController@search')->name('order.search');
+
+//AdminController
+
+Route::get('/admin/orders', 'AdminController')->name('admin');
 

@@ -65,3 +65,11 @@ header{
 .table-img{
     width: 80px;
 }
+
+.orders{
+    margin-top: 15px;
+}
+
+.orders ul a{
+    text-decoration: none;
+}
