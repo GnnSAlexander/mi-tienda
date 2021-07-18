@@ -20,8 +20,8 @@ return [
     |
     */
     'order_status' => [
-        '101' => 'CREATED',
-        '102' => 'PAYED',
-        '103' => 'REJECTED'
+        101 => 'CREATED',
+        102 => 'PAYED',
+        103 => 'REJECTED'
     ]
 ];
