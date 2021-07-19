@@ -25,14 +25,16 @@ Route::POST('/checkout/', 'CheckoutController@store')->name('checkout.store');
 
 ///SummaryController
 
-Route::get('/checkout/summary/{order}', 'SummaryController')->name('summary');
+Route::get('/checkout/summary/{order}', 'SummaryController@index')->name('summary');
+
+Route::get('/checkout/summary/response/{order}', 'SummaryController@update')->name('summary.update');
 
 
 ///OrderController
 
 Route::get('/my-orders','OrderController@index')->name('order');
 
-Route::get('/my-orders/{id}','OrderController@show')->name('order.show');
+Route::get('/my-orders/{order}','OrderController@show')->name('order.show');
 
 Route::post('/search','OrderController@search')->name('order.search');
 

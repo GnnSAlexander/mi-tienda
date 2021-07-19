@@ -11,7 +11,8 @@
             @foreach( $orders as $order)
                 <li class="list-group-item">
                     (No. {{$order->id}}) {{ $order->customer_name }}( {{  $order->customer_email }} )
-                    <span class="badge rounded-pill bg-primary">{{  $order->status  }}</span>
+                    <span class="badge rounded-pill {{strtolower($order->status)}} "
+                    >{{  $order->status  }}</span>
                 </li>
             @endforeach
         </ul>

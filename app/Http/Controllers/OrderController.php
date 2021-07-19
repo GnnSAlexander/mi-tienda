@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Src\Models\Product;
 
 class OrderController extends Controller
 {
@@ -13,9 +14,10 @@ class OrderController extends Controller
         return view('order.index');
     }
 
-    public function show($id)
+    public function show(Order $order)
     {
-        return 'Not Implemented';
+        $products = [new Product()];
+        return view('order.show', compact(['order','products']));
     }
 
     public function search()
@@ -39,4 +41,5 @@ class OrderController extends Controller
         );
         return response()->json($response);
     }
+
 }

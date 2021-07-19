@@ -76,7 +76,10 @@
                                 li.className='list-group-item'
 
                                 const span = document.createElement('span')
-                                span.className = 'badge rounded-pill bg-primary'
+                                span.className = 'badge rounded-pill'
+                                //Set color for status
+                                span.classList.add(order.status.toLowerCase())
+                                
                                 span.innerHTML = order.status
 
                                 li.appendChild(span)

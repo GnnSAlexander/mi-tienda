@@ -3,7 +3,7 @@
 @section('title', 'Checkout Page')
 
 @section('content')
-    <h1>Summary page</h1>
+    <h1>Order No({{ $order->id }})</h1>
 
     <table class="table table-dark table-borderless">
         <thead>
@@ -29,12 +29,12 @@
     </table>
 
     <div>
-       <p>Name: {{ $order->customer_name }}</p>
+        <p>Name: {{ $order->customer_name }}</p>
         <p>Email: {{ $order->customer_email }}</p>
         <p>Phone: {{ $order->customer_mobile }}</p>
         <p>Total: {{ $order->total }}</p>
 
-        <a href="{{ $urlToPayment }}" class="btn btn-primary">Pay</a>
+        <span class="badge rounded-pill {{strtolower($order->status)}} ">{{  $order->status  }}</span>
     </div>
 
 @endsection
