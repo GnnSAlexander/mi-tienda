@@ -91,5 +91,9 @@ header{
 }
 
 .list-group-item, form .mb-3{
-    text-align: justify;
+    text-align: left;
+}
+
+.btn{
+    margin:15px;
 }

@@ -35,6 +35,11 @@
         <p>Total: {{ $order->total }}</p>
 
         <span class="badge rounded-pill {{strtolower($order->status)}} ">{{  $order->status  }}</span>
+
+        <br>
+        @if($order->status === 'REJECTED')
+            <a class="btn btn-primary" href="{{ route('checkout', ['id'=> $order->id]) }}">Re-Order</a>
+        @endif
     </div>
 
 @endsection

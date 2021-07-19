@@ -71,6 +71,7 @@
                             orders.forEach((order) => {
                                 const li = document.createElement('li');
                                 const a = document.createElement('a')
+
                                 a.href = '/my-orders/'+order.id
                                 li.innerHTML = `(No. ${order.id}) Name: ${order.customer_name}( ${order.customer_email} ) `;
                                 li.className='list-group-item'
@@ -83,6 +84,17 @@
                                 span.innerHTML = order.status
 
                                 li.appendChild(span)
+
+                                /*if(order.status === 'REJECTED'){
+                                    const aButton = document.createElement('a')
+                                    aButton.href = 'checkout/'+order.id
+                                    aButton.className = 'btn btn-primary'
+                                    aButton.innerText = 'Re-Order'
+                                    li.appendChild(document.createElement('br'))
+                                    li.appendChild(aButton)
+                                }*/
+
+
                                 a.appendChild(li)
                                 ul.appendChild(a);
                             });

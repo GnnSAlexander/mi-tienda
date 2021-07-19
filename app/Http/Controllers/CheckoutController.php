@@ -18,7 +18,11 @@ class CheckoutController extends Controller
         $order = null;
 
         if($id){
-            $order = Order::findOrFail($id);
+            $orderOld = Order::findOrFail($id);
+
+            if($orderOld->status === 'REJECTED' || $orderOld->status === 'FAILED'){
+                $order = $orderOld;
+            }
         }
 
         return view('checkout.create', compact(['products', 'order']));

@@ -19,6 +19,12 @@ class SummaryController extends Controller
 
     function index(Order $order)
     {
+
+        if($order->request_id){
+            return redirect(route('order.show',['order'=> $order]));
+        }
+
+
         $products = [new Product()];
 
         $urlToPayment = null;
@@ -37,7 +43,7 @@ class SummaryController extends Controller
                 'total' => $order->total,
                 ],
             ],
-            'expiration' => date('c', strtotime('+2 days')),
+            'expiration' => date('c', strtotime('+30 minutes')),
             'returnUrl' => route('summary.update',['order' => $order ]),
             'ipAddress' => request()->ip(),
             'userAgent' => request()->server('HTTP_USER_AGENT'),
@@ -46,6 +52,10 @@ class SummaryController extends Controller
         try{
 
             $response = $this->paymentGateway->processURL($data);
+
+            if(is_array($response)){
+                dd($response['error']->message());
+            }
 
             if($response->isSuccessful()){
 
@@ -73,9 +83,18 @@ class SummaryController extends Controller
 
             $status = config('store.order_status');
 
-            $order->status = $response->status()->status();
+            if($order->status !== $response->status()->status()){
 
-            $order->save();
+                if( in_array($response->status()->status(), $status) ){
+                    $order->status = $response->status()->status();
+                }
+
+                if($response->status()->status() === 'APPROVED'){
+                    $order->status = 'PAYED';
+                }
+
+                $order->save();
+            }
 
             return redirect( route('order.show', [ 'order' => $order ]) );
 
