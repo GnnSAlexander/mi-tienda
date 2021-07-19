@@ -11,6 +11,7 @@ class Order extends Model
         'customer_email',
         'customer_mobile',
         'total',
-        'currency'
+        'currency',
+        'request_id'
     ];
 }
