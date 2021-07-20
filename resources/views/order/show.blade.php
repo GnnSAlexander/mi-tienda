@@ -40,6 +40,10 @@
         @if($order->status === 'REJECTED')
             <a class="btn btn-primary" href="{{ route('checkout', ['id'=> $order->id]) }}">Re-Order</a>
         @endif
+
+        @if($order->status === 'CREATED')
+            <a class="btn btn-primary" href="{{ $order->payment_url }}">Pay</a>
+        @endif
     </div>
 
 @endsection

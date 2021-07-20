@@ -19,16 +19,13 @@ class SummaryController extends Controller
 
     function index(Order $order)
     {
-
-        if($order->request_id){
-            return redirect(route('order.show',['order'=> $order]));
-        }
-
-
         $products = [new Product()];
 
         $urlToPayment = null;
 
+        if($order->request_id){
+            return redirect(route('order.show',['order'=> $order]));
+        }
 
         try{
 
@@ -41,7 +38,7 @@ class SummaryController extends Controller
             if($response->isSuccessful()){
 
                 $order->request_id = $response->requestId();
-
+                $order->payment_url = $response->processUrl();
                 $order->save();
 
                 $urlToPayment = $response->processUrl();
