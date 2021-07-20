@@ -9,11 +9,9 @@ class AdminController extends Controller
 {
     public function __invoke()
     {
-        //dd(request()->all());
-
         $code = request()->code;
 
-        if(!$code or $code != '234' ){
+        if(!$code or $code != config('store.code') ){
             return 'Doesn\'t have Permission';
         }
         $orders = Order::paginate(15);

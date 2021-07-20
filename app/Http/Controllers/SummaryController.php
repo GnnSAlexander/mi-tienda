@@ -29,29 +29,10 @@ class SummaryController extends Controller
 
         $urlToPayment = null;
 
-        $data = [
-            'buyer' =>[
-                'name' => $order->customer_name,
-                'email' => $order->customer_email,
-                'mobile' => $order->customer_mobile
-            ],
-            'payment' => [
-            'reference' => $order->id,
-            'description' => 'Mi  Tienda',
-            'amount' => [
-                'currency' => $order->currency,
-                'total' => $order->total,
-                ],
-            ],
-            'expiration' => date('c', strtotime('+30 minutes')),
-            'returnUrl' => route('summary.update',['order' => $order ]),
-            'ipAddress' => request()->ip(),
-            'userAgent' => request()->server('HTTP_USER_AGENT'),
-        ];
 
         try{
 
-            $response = $this->paymentGateway->processURL($data);
+            $response = $this->paymentGateway->createTransaction($order);
 
             if(is_array($response)){
                 dd($response['error']->message());
@@ -60,6 +41,7 @@ class SummaryController extends Controller
             if($response->isSuccessful()){
 
                 $order->request_id = $response->requestId();
+
                 $order->save();
 
                 $urlToPayment = $response->processUrl();
@@ -89,7 +71,7 @@ class SummaryController extends Controller
                     $order->status = $response->status()->status();
                 }
 
-                if($response->status()->status() === 'APPROVED'){
+                if($response->status()->IsApproved() === 'APPROVED'){
                     $order->status = 'PAYED';
                 }
 

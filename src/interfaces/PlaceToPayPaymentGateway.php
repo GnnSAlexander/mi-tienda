@@ -12,8 +12,10 @@ class PlaceToPayPaymentGateway implements PaymentGatewayInterface
         $this->services = $services;
     }
 
-    function processURL($request)
+    function createTransaction($order)
     {
+
+        $request = $this->requestFormat($order);
 
         $response = $this->services->request($request);
         if ($response->isSuccessful()) {
@@ -31,5 +33,30 @@ class PlaceToPayPaymentGateway implements PaymentGatewayInterface
     {
         return $this->services->query($requestId);
 
+    }
+
+    protected  function requestFormat($order)
+    {
+        $request = [
+            'buyer' =>[
+                'name' => $order->customer_name,
+                'email' => $order->customer_email,
+                'mobile' => $order->customer_mobile
+            ],
+            'payment' => [
+                'reference' => $order->id,
+                'description' => 'Mi  Tienda',
+                'amount' => [
+                    'currency' => $order->currency,
+                    'total' => $order->total,
+                ],
+            ],
+            'expiration' => date('c', strtotime('+30 minutes')),
+            'returnUrl' => route('summary.update',['order' => $order ]),
+            'ipAddress' => request()->ip(),
+            'userAgent' => request()->server('HTTP_USER_AGENT'),
+        ];
+
+        return $request;
     }
 }

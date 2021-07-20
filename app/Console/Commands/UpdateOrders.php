@@ -43,7 +43,6 @@ class UpdateOrders extends Command
      */
     public function handle()
     {
-        $status = config('store.order_status');
 
         $orders =Order::whereIn('status', ['CREATED', 'PENDING'])->get();
 
@@ -52,11 +51,12 @@ class UpdateOrders extends Command
                 $response = $this->services->getRequestInformation( $order->request_id);
 
                 if($response->status()->status() !== $order->status){
-                    if( in_array($response->status()->status(), $status) ){
-                        $order->status = $response->status()->status();
+
+                    if( $response->status()->isRejected() ){
+                        $order->status = 'REJECTED';
                     }
 
-                    if($response->status()->status() === 'APPROVED'){
+                    if( $response->status()->isApproved() ){
                         $order->status = 'PAYED';
                     }
 

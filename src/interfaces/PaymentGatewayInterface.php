@@ -3,7 +3,7 @@ namespace Src\Interfaces;
 
 interface PaymentGatewayInterface
 {
-    function processURL($request);
+    function createTransaction($order);
 
     function getRequestInformation($requestId);
 }
