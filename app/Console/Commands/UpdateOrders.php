@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Order;
 use Illuminate\Console\Command;
-use Src\Interfaces\PaymentGatewayInterface;
+use Src\Interfaces\PaymentGateway\PaymentGatewayInterface;
 
 class UpdateOrders extends Command
 {

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderModuleTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * Order page loads good.
      *

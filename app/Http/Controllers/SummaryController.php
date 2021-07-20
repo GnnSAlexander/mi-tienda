@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use Illuminate\Http\Request;
-use Src\Interfaces\PaymentGatewayInterface;
+use Src\Interfaces\PaymentGateway\PaymentGatewayInterface;
 use Src\Models\Product;
 
 class SummaryController extends Controller
@@ -63,15 +63,13 @@ class SummaryController extends Controller
         try{
             $response = $this->paymentGateway->getRequestInformation($order->request_id);
 
-            $status = config('store.order_status');
+            if($response->status()->status() !== $order->status){
 
-            if($order->status !== $response->status()->status()){
-
-                if( in_array($response->status()->status(), $status) ){
-                    $order->status = $response->status()->status();
+                if( $response->status()->isRejected() ){
+                    $order->status = 'REJECTED';
                 }
 
-                if($response->status()->IsApproved() === 'APPROVED'){
+                if( $response->status()->isApproved() ){
                     $order->status = 'PAYED';
                 }
 

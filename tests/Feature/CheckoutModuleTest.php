@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CheckoutModuleTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * Verify it loads the checkout page
      *
@@ -137,6 +138,7 @@ class CheckoutModuleTest extends TestCase
         $lastId = DB::getPdo()->lastInsertId();
 
         $response->assertRedirect(route('summary',['order' => $lastId]));
+        $this->get(route('summary',['order' => $lastId]))->assertSee('Pay');
 
         $order = $this->assertDatabaseHas('orders',[
             'customer_name' => 'Pepito Perez',
@@ -157,6 +159,8 @@ class CheckoutModuleTest extends TestCase
         //$this->withoutExceptionHandling();
 
         $orderStatus = config('store.order_status');
+
+        factory(Order::class,10)->create();
 
         $order = Order::where('status', $orderStatus[103])->first();
 

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminModuleTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * It does not permission by code wrong.
      *
@@ -32,7 +33,7 @@ class AdminModuleTest extends TestCase
      */
     public function testPermissionValidByCodeCorrect()
     {
-        $order = Order::first();
+        $order = factory(Order::class)->create();
         $this->get(route('admin',['code'=> config('store.code')], false))
             ->assertSee('Admin')
             ->assertSee($order->customer_name)

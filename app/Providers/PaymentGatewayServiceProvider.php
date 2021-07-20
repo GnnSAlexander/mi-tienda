@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Support\ServiceProvider;
-use Src\Interfaces\PaymentGatewayInterface;
-use Src\Interfaces\PlaceToPayPaymentGateway;
+use Src\Interfaces\PaymentGateway\PaymentGatewayInterface;
+use Src\Implementation\PaymentGateway\PlaceToPayPaymentGateway;
 
 class PaymentGatewayServiceProvider extends ServiceProvider
 {
