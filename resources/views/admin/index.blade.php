@@ -10,7 +10,7 @@
         <ul class="list-group">
             @foreach( $orders as $order)
                 <li class="list-group-item">
-                    (No. {{$order->id}}) {{ $order->customer_name }}( {{  $order->customer_email }} )
+                    (No. {{$order->id}}) {{ $order->customer_name }}( {{  $order->customer_email }} ) {{ priceFormat($order->total) }}
                     <span class="badge rounded-pill {{strtolower($order->status)}} "
                     >{{  $order->status  }}</span>
                 </li>

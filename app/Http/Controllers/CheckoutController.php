@@ -23,6 +23,10 @@ class CheckoutController extends Controller
             if($orderOld->status === 'REJECTED' || $orderOld->status === 'FAILED'){
                 $order = $orderOld;
             }
+
+            if($orderOld->status === 'CREATED' && $orderOld->payment_url === null ){
+                $order = $orderOld;
+            }
         }
 
         return view('checkout.create', compact(['products', 'order']));

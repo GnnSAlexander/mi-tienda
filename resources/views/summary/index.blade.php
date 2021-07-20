@@ -21,7 +21,7 @@
                 <th scope="row"></th>
                 <td><img src="{{ $product->image }}" class="img-responsive table-img" alt="{{ $product->name }}"></td>
                 <td>{{ $product->name }}</td>
-                <td>{{ $product->price }}</td>
+                <td>{{ priceFormat($product->price) }}</td>
             </tr>
         @endforeach
 
@@ -32,7 +32,7 @@
        <p>Name: {{ $order->customer_name }}</p>
         <p>Email: {{ $order->customer_email }}</p>
         <p>Phone: {{ $order->customer_mobile }}</p>
-        <p>Total: {{ $order->total }}</p>
+        <p>Total: {{ priceFormat($order->total) }}</p>
 
         <a href="{{ $urlToPayment }}" class="btn btn-primary">Pay</a>
     </div>

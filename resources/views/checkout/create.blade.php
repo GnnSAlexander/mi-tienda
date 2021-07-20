@@ -21,7 +21,7 @@
                 <th scope="row"></th>
                 <td><img src="{{ $product->image }}" class="img-responsive table-img" alt="{{ $product->name }}"></td>
                 <td>{{ $product->name }}</td>
-                <td>{{ $product->price }}</td>
+                <td>{{ priceFormat($product->price) }}</td>
             </tr>
         @endforeach
 

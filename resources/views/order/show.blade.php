@@ -21,7 +21,7 @@
                 <th scope="row"></th>
                 <td><img src="{{ $product->image }}" class="img-responsive table-img" alt="{{ $product->name }}"></td>
                 <td>{{ $product->name }}</td>
-                <td>{{ $product->price }}</td>
+                <td>{{ priceFormat($product->price) }}</td>
             </tr>
         @endforeach
 
@@ -32,7 +32,7 @@
         <p>Name: {{ $order->customer_name }}</p>
         <p>Email: {{ $order->customer_email }}</p>
         <p>Phone: {{ $order->customer_mobile }}</p>
-        <p>Total: {{ $order->total }}</p>
+        <p>Total: {{ priceFormat($order->total) }}</p>
 
         <span class="badge rounded-pill {{strtolower($order->status)}} ">{{  $order->status  }}</span>
 
@@ -41,8 +41,11 @@
             <a class="btn btn-primary" href="{{ route('checkout', ['id'=> $order->id]) }}">Re-Order</a>
         @endif
 
-        @if($order->status === 'CREATED')
+        @if($order->status === 'CREATED' and $order->payment_url )
             <a class="btn btn-primary" href="{{ $order->payment_url }}">Pay</a>
+        @else
+            <div class="alert alert-warning">Sorry the transaction was not generated</div>
+            <a class="btn btn-primary" href="{{ route('checkout', ['id'=> $order->id]) }}">Re-Order</a>
         @endif
     </div>
 
