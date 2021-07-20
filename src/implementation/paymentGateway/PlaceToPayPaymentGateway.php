@@ -1,7 +1,8 @@
 <?php
-namespace Src\Interfaces;
+namespace Src\Implementation\PaymentGateway;
 
 use Dnetix\Redirection\PlacetoPay;
+use Src\Interfaces\PaymentGateway\PaymentGatewayInterface;
 
 class PlaceToPayPaymentGateway implements PaymentGatewayInterface
 {

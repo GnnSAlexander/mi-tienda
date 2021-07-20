@@ -1,5 +1,5 @@
 <?php
-namespace Src\Interfaces;
+namespace Src\Interfaces\PaymentGateway;
 
 interface PaymentGatewayInterface
 {
